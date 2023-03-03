@@ -1,24 +1,25 @@
 import logo from './logo.svg';
 import './App.css';
+import MainRoutes from './Routes/MainRoutes';
+import './styles.css'
+import { ToastContent } from './utils/Alerts';
+import { createTheme } from '@mui/material'
+import { ThemeProvider } from '@mui/material'
+
+const Theme = createTheme({
+  palette: {
+    primary: { main: '#3e8c5f' },
+    secondary: { main: '#ffffff' },
+    success: { main: '#693B9F' },
+  }
+})
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider theme={Theme}>
+      <MainRoutes />
+      <ToastContent />
+    </ThemeProvider>
   );
 }
 
