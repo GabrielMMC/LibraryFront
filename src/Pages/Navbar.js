@@ -18,6 +18,7 @@ import MoreIcon from '@mui/icons-material/MoreVert';
 import { useNavigate } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { logout, mudarDados } from '../components/actions/AppActions';
+import logo from '../img/core-img/logo.png'
 
 const Search = styled('div')(({ theme }) => ({
  position: 'relative',
@@ -54,7 +55,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   transition: theme.transitions.create('width'),
   width: '100%',
   [theme.breakpoints.up('md')]: {
-   width: '20ch',
+   width: '30ch',
   },
  },
 }));
@@ -194,7 +195,10 @@ export default function Navbar() {
      >
       <MenuIcon />
      </IconButton>
-     <span className='lead'>LIVRARIA RG</span>
+     {/* <span className='lead'>RGBooks</span> */}
+     <div style={{width: 100, height: 100}}>
+     <img src={logo} className='img-fluid'/>
+     </div>
      <Search>
       <SearchIconWrapper>
        <SearchIcon />

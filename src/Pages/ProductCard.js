@@ -34,31 +34,29 @@ export default function ProductCard(props) {
  };
 
  return (
-  <Card sx={{ maxWidth: 345 }}>
+  <Card sx={{ maxWidth: 200 }}>
    <CardHeader
     action={
      <IconButton aria-label="settings">
       <MoreVertIcon />
      </IconButton>
     }
-    title="Lorem ipsum de livro"
-    subheader="Setembro 14, 2022"
+    title={props.title}
+    subheader={props.subtitle}
    />
    <CardMedia
     component="img"
-    height="500"
+    height="300"
     image={props.image}
     alt="Paella dish"
    />
    <CardContent>
     <Typography variant="body2" color="text.secondary">
-     This impressive paella is a perfect party dish and a fun meal to cook
-     together with your guests. Add 1 cup of frozen peas along with the mussels,
-     if you like.
+    {props.content}
     </Typography>
 
     <div className="row mt-3">
-     <span className='bolder display-6 m-auto'>R$: 79,99</span>
+     <span className='bolder display-6 m-auto'>{props.price}</span>
     </div>
    </CardContent>
    <CardActions disableSpacing>
