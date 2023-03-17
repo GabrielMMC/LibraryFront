@@ -6,6 +6,8 @@ import Dashboard from ".././Private/Home";
 import Login from "../components/Login/Login";
 import Register from "../components/Login/Register";
 import CreateUser from "../Private/User/CreateUser";
+import ListBooks from "../Private/Book/ListBooks";
+import CreateBook from "../Private/Book/CreateBook";
 
 const MainRoutes = () => {
   const dispatch = useDispatch();
@@ -30,6 +32,8 @@ const MainRoutes = () => {
       {user.email === 'admin@admin.com' &&
         <Route path={"/admin/"} element={<Dashboard />}>
           <Route path={"users/create"} element={<CreateUser />} />
+          <Route path={"books"} element={<ListBooks />} />
+          <Route path={"books/create"} element={<CreateBook />} />
         </Route>}
     </Routes>
   );

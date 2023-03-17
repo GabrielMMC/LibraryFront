@@ -2,14 +2,14 @@ import { getCookie } from "./cookies"
 import { useSelector } from 'react-redux'
 import { API_URL } from "./variables";
 
-export const get = async (path) => {
+export const GET = async (props) => {
   const token = localStorage.getItem('token')
   const headers = {
     Accept: "application/json",
     ...(token && { Authorization: "Bearer " + token }),
   };
 
-  let response = await fetch(path, {
+  let response = await fetch(API_URL + '/' + props.url, {
     method: "GET",
     headers: headers,
   })

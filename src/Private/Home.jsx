@@ -62,7 +62,7 @@ const Home = (props) => {
                 handleCollapsedChange={handleCollapsedChange}
             />
 
-            <div className="container-fluid d-flex justify-content-center mt-3">
+            <div className="container-fluid d-flex justify-content-center mt-3 bg-white">
                 <div className="container-fluid anime-left mt-5" >
                     <Outlet />
                 </div>

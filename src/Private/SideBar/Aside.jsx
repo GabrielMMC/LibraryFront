@@ -1,7 +1,6 @@
 import React from 'react';
 import { ProSidebar, Menu, MenuItem, SidebarFooter, SidebarContent, SubMenu } from 'react-pro-sidebar';
-import { FaShoppingCart, FaUser } from 'react-icons/fa';
-import { HiHome } from 'react-icons/hi';
+import { FaUser, FaBook } from 'react-icons/fa';
 import sidebarBg from './assets/bg1.jpg';
 import { NavLink } from 'react-router-dom';
 import { MdCopyright } from 'react-icons/md';
@@ -27,6 +26,20 @@ const Aside = ({ image, collapsed, toggled, handleToggleSidebar }) => {
             <MenuItem activeStyle={{ fontWeight: "bold" }}>
               <NavLink exact to="users/create" activeStyle={{ fontWeight: "bold" }}>
                 Cadastro de Usuário
+              </NavLink>
+            </MenuItem>
+          </SubMenu>
+
+          <SubMenu defaultOpen activeStyle={{ fontWeight: "bold" }} title="Livros" icon={<FaBook size='20' />}>
+            <MenuItem activeStyle={{ fontWeight: "bold" }}>
+              <NavLink exact to="books" activeStyle={{ fontWeight: "bold" }}>
+                Lista de Livros
+              </NavLink>
+            </MenuItem>
+
+            <MenuItem activeStyle={{ fontWeight: "bold" }}>
+              <NavLink exact to="books/create" activeStyle={{ fontWeight: "bold" }}>
+                Cadastro de Livro
               </NavLink>
             </MenuItem>
           </SubMenu>
