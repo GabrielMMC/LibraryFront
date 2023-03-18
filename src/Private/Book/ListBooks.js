@@ -86,7 +86,6 @@ const ListBooks = () => {
           </div>
         </div>
       </div>
-
       {!loading ?
         <table className='table table-hover table-striped text-center'>
           <thead>
@@ -133,9 +132,8 @@ const ListBooks = () => {
           </tbody>
         </table> : <div className='d-flex justify-content-center p-5'><CircularProgress /></div>
       }
-
       {books.length > 0 && pagination.totalItems &&
-        <div className='d-flex justify-content-end'>
+        <div className='d-flex justify-content-end mb-2'>
           <Pagination color='primary' shape="rounded" count={Math.ceil(pagination.totalItems / pagination.perPage)}
             page={pagination.pageNumber + 1} onChange={(e, page) => {
               window.scrollTo(0, 0); setPagination({ ...pagination, pageNumber: page - 1 }); setAllow(true)

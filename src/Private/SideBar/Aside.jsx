@@ -17,7 +17,7 @@ const Aside = ({ image, collapsed, toggled, handleToggleSidebar }) => {
       collapsed={collapsed}
       toggled={toggled}
       breakPoint="md"
-      style={{ height: 'calc(100vh)', boxShadow: 'rgba(100, 100, 111, 0.2) 0px 7px 29px 0px' }}
+      style={{ boxShadow: 'rgba(100, 100, 111, 0.2) 0px 7px 29px 0px' }}
       onToggle={handleToggleSidebar}
     >
       <SidebarContent className='scrollMenu' style={{ background: '#222d32', overflowY: 'auto' }}>

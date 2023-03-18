@@ -49,7 +49,6 @@ const Home = (props) => {
                 image={image}
                 collapsed={collapsed}
                 toggled={toggled}
-
                 handleToggleSidebar={handleToggleSidebar}
                 handleCollapsedChange={handleCollapsedChange}
 
@@ -62,8 +61,8 @@ const Home = (props) => {
                 handleCollapsedChange={handleCollapsedChange}
             />
 
-            <div className="container-fluid d-flex justify-content-center mt-3 bg-white">
-                <div className="container-fluid anime-left mt-5" >
+            <div className="container-fluid d-flex justify-content-center bg-white" style={{height: '100%', overflow: 'hidden', padding: 0}}>
+                <div className="container-fluid anime-left mt-5" style={{overflowY: 'scroll'}}>
                     <Outlet />
                 </div>
             </div>
