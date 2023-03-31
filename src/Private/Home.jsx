@@ -44,7 +44,7 @@ const Home = (props) => {
     const marginLeft = (toggled === false || window.innerWidth <= 768) ? 0 : (collapsed === false ? 270 : 80);
     console.log('toggle', toggled, collapsed);
     return (
-        <div className={`app ${toggled ? 'toggled' : ''} bg-gray`}>
+        <div className={`app ${toggled ? 'toggled' : ''} bg-gray h-100`}>
             <Aside
                 image={image}
                 collapsed={collapsed}
@@ -54,27 +54,11 @@ const Home = (props) => {
                 handleCollapsedChange={handleCollapsedChange}
 
             />
-            <Header
-                image={image}
-                toggled={toggled}
-                collapsed={collapsed}
-                handleToggleSidebar={handleToggleSidebar}
-                handleCollapsedChange={handleCollapsedChange}
-            />
-
-            <div className="container-fluid d-flex justify-content-center mt-3 bg-white">
-                <div className="container-fluid anime-left mt-5" >
+            <div className="container-fluid d-flex justify-content-center bg-white">
+                <div className="container-fluid anime-left" >
                     <Outlet />
                 </div>
             </div>
-            {/* <div className="content-page" >
-                <div style={{ marginLeft: marginLeft, transition: 'all 0.3s ', paddingBottom: 100 }}>
-                    <div className="container-fluid">
-                        <Outlet />
-                    </div>
-                </div>
-            </div> */}
-
         </div>
     );
 }

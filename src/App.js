@@ -1,5 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
+import React from 'react'
 import MainRoutes from './Routes/MainRoutes';
 import './styles.css'
 import { ToastContent } from './utils/Alerts';
@@ -13,6 +14,7 @@ const Theme = createTheme({
     success: { main: '#693B9F' },
   }
 })
+
 
 function App() {
   return (

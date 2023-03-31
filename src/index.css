@@ -70,4 +70,33 @@ code {
   border-color: #FEBD00 !important;
 }
 
+.rounded-button {
+  border-radius: 10%;
+  border: none;
+  height: 2rem;
+  width: 2rem;
+  background: none;
+  color: #707070
+}
+
+.rounded-button:hover{
+  transition: .3s all;
+  background: #F5F5F5;
+}
+
+.rounded-active{
+  background: #FEBD00;
+  color: #333;
+}
+
+.rounded-active:hover{
+  background: #FEBD00;
+}
+
+.w-1200{
+  margin: auto;
+  max-width: 1200px;
+}
+
+
 

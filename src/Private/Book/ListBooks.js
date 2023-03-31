@@ -2,6 +2,7 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { MdEdit, MdDelete, MdSearch, MdSave } from 'react-icons/md'
+import { AiOutlineSortAscending, AiOutlineSortDescending } from 'react-icons/ai'
 import { CircularProgress, IconButton, Pagination, Tooltip, Button } from '@mui/material'
 import { DELETE, GET } from '../../utils/requests'
 import { renderAlert, renderToast } from '../../utils/Alerts'
@@ -11,9 +12,11 @@ import Filter from '../../utils/Filter'
 
 const ListBooks = () => {
   const [allow, setAllow] = React.useState(true)
+  const [sizeData, setSizeData] = React.useState(5)
   const [search, setSearch] = React.useState('')
   const [dateOf, setDateOf] = React.useState('')
   const [dateFor, setDateFor] = React.useState('')
+  const [sortByAsc, setSortByAsc] = React.useState(true)
   const [loading, setLoading] = React.useState(true)
   const [books, setBooks] = React.useState([])
   const [genders, setGenders] = React.useState([])
@@ -21,8 +24,6 @@ const ListBooks = () => {
   const [pagination, setPagination] = React.useState({
     totalItems: '', pageNumber: 0, perPage: 10
   })
-  console.log('paginaiton', pagination)
-  console.log('books', books)
 
   const history = useNavigate()
 
@@ -34,16 +35,38 @@ const ListBooks = () => {
 
   React.useEffect(() => {
     if (allow) getData()
-  }, [pagination.pageNumber, allow, search])
+  }, [pagination.pageNumber, allow, search, sizeData])
+
+
+  React.useEffect(() => {
+    const sortedBooks = [...books].sort((a, z) => {
+      if (sortByAsc) {
+        return a.title.localeCompare(z.title)
+      } else {
+        return z.title.localeCompare(a.title)
+      }
+    })
+
+    setBooks(sortedBooks)
+  }, [sortByAsc]);
 
   const getData = async () => {
     setLoading(true)
     const response = await GET({
-      url: `books/?page=${pagination.pageNumber + 1}&dateOf=${dateOf ? dateOf : ''}&dateFor=${dateFor ? dateFor : ''}&search=${search}&gender=${selectedGender}`
+      url: `books/?page=${pagination.pageNumber + 1}&dateOf=${dateOf ? dateOf : ''}&dateFor=${dateFor ? dateFor : ''}&search=${search}&gender=${selectedGender}&sizeData=${sizeData}`
     })
-    // console.log('resp', response)
+    console.log('resp', response)
+    const sortedBooks = response.books.sort((a, z) => {
+      if (sortByAsc) {
+        return a.title.localeCompare(z.title)
+      } else {
+        return z.title.localeCompare(a.title)
+      }
+    })
 
-    setPagination({ ...pagination, totalItems: response.pagination.total_pages }); setBooks(response.books); setGenders(response.genders); setLoading(false)
+    setPagination({ ...pagination, totalItems: response.pagination.total_pages, perPage: response.pagination.per_page })
+    setBooks(sortedBooks); setGenders(response.genders); setLoading(false)
+
   }
 
   const handleSize = (description) => {
@@ -63,6 +86,7 @@ const ListBooks = () => {
     else renderToast({ type: 'error', error: 'Falha ao deletar produto, tente novamente mais tarde!' })
   }
 
+
   return (
     <div className='anime-left'>
       <div className="row my-5">
@@ -71,8 +95,19 @@ const ListBooks = () => {
             <h6 className="dash-title">Livros</h6>
             <Filter setDateOf={setDateOf} setDateFor={setDateFor} dateOf={dateOf} dateFor={dateFor} setAllow={setAllow} setPagination={setPagination}
               setSearch={setSearch} options={genders} selectedGender={selectedGender} setSelected={setSelectedGender} />
+
+            <IconButton sx={{ padding: 0 }} onClick={() => setSortByAsc(!sortByAsc)}>
+              {sortByAsc ? <AiOutlineSortAscending /> : <AiOutlineSortDescending />}
+            </IconButton>
+
+            <button className={`rounded-button ${sizeData === 5 && 'rounded-active'}`} onClick={() => setSizeData(5)}>5</button>
+            <button className={`rounded-button ${sizeData === 10 && 'rounded-active'}`} onClick={() => setSizeData(10)}>10</button>
+            <button className={`rounded-button ${sizeData === 15 && 'rounded-active'}`} onClick={() => setSizeData(15)}>15</button>
+            <button className={`rounded-button ${sizeData === 20 && 'rounded-active'}`} onClick={() => setSizeData(20)}>20</button>
+            <button className={`rounded-button ${sizeData === 25 && 'rounded-active'}`} onClick={() => setSizeData(25)}>25</button>
+
           </div>
-          <p className='small mb-4'>Encontre todos seus livros cadastrados!</p>
+          <p className='small'>Encontre todos seus livros cadastrados!</p>
 
           <div class="input-group-with-icon">
             <input class="form-control" type="text" placeholder="Buscar pelo título..." onChange={({ target }) => handleSearch(target.value)} required />

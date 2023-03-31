@@ -2,7 +2,7 @@ import React from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import { Alert, Button, LinearProgress, TextField, Icon } from '@mui/material'
 import { login } from '../actions/AppActions'
-import { POST } from '../../utils/requests'
+import { GET, POST } from '../../utils/requests'
 import { useDispatch } from 'react-redux'
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
@@ -49,6 +49,37 @@ const Login = () => {
     }
     setLoading(false)
   }
+  const google = window.google;
+
+  React.useEffect(() => {
+    google.accounts.id.initialize({
+      client_id: "214569242203-m2i9jquahq96fo66itkl1n6p3gurj6ro.apps.googleusercontent.com",
+      callback: handleCallbackResponse
+    })
+
+    google.accounts.id.renderButton(
+      document.getElementById("sigin"),
+      { theme: 'outline', size: 'large' }
+    )
+  }, [])
+
+  const handleCallbackResponse = async (resp) => {
+    console.log('resp', resp)
+
+    fetch('https://www.googleapis.com/oauth2/v1/userinfo', {
+      method: "GET",
+      headers: {
+        Accept: 'application/json',
+        Authorization: `Bearer ${resp.credential}`,
+      },
+    })
+      .then(async (res) => {
+        const json = await res.json()
+        console.log('resp jsonssa', json)
+      })
+      .catch((err) => console.log("Error to get: " + err.message));
+
+  }
 
   return (
     <div className='d-flex vh-100 align-items-center' style={{ overflow: 'hidden', backgroundColor: '#f5f5f5' }}>
@@ -72,6 +103,9 @@ const Login = () => {
             <Icon sx={{ cursor: "pointer" }} onClick={() => setPassword({ ...password, visible: !password.visible })}
               component={password.visible ? VisibilityIcon : VisibilityOffIcon} />
           </div>
+        </div>
+        <div className="my-3">
+          <div id="sigin"></div>
         </div>
         <div className="d-flex justify-content-end mt-5">
           <span className='align-self-end me-3'>Não tem uma conta? <Link to={"/Register"}>Registre-se</Link></span>

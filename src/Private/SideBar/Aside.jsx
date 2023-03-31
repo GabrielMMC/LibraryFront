@@ -17,7 +17,7 @@ const Aside = ({ image, collapsed, toggled, handleToggleSidebar }) => {
       collapsed={collapsed}
       toggled={toggled}
       breakPoint="md"
-      style={{ height: 'calc(100vh)', boxShadow: 'rgba(100, 100, 111, 0.2) 0px 7px 29px 0px' }}
+      style={{ height: '100%', minHeight: '100%', boxShadow: 'rgba(100, 100, 111, 0.2) 0px 7px 29px 0px' }}
       onToggle={handleToggleSidebar}
     >
       <SidebarContent className='scrollMenu' style={{ background: '#222d32', overflowY: 'auto' }}>
@@ -53,15 +53,7 @@ const Aside = ({ image, collapsed, toggled, handleToggleSidebar }) => {
             padding: '20px 24px',
           }}
         >
-          <a
-            href="http://www.verdaz.com.br"
-            target="_blank"
-            className="sidebar-btn"
-            rel="noopener noreferrer"
-          >
-            <MdCopyright />
-            <span> {'CopyRight 2022 MeetES'}</span>
-          </a>
+          <span> {'Trabalho do Boer - Rafaela - ©2023'}</span>
         </div>
       </SidebarFooter>
     </ProSidebar >

@@ -66,8 +66,10 @@ const CreateBook = () => {
   }
 
   return (
-    <form onSubmit={(e) => { e.preventDefault(); handleSave() }}>
-      <h6 className='dash-title mt-2'>Cadastro de livros</h6>
+    <form className='p-3 w-1200' onSubmit={(e) => { e.preventDefault(); handleSave() }}>
+      <h6 className='display-6'>Livros</h6>
+      <p className='text-muted'>Cadastre um livro para o seu sistema!</p>
+      <hr />
       <div className="row my-4">
         <div className="col-sm-6">
           <TextField fullWidth name='title' label={"Título *"} value={form.title} helperText={errors?.title} onBlur={handleBlur} onChange={handleChange} error={Boolean(errors?.title)} />
@@ -99,7 +101,7 @@ const CreateBook = () => {
         </div>
       </div>
 
-      <div className="row my-4">
+      <div className="row mt-4">
         <div className="col-sm-6">
           <TextField multiline rows={20} fullWidth name='synopsis' label={"Sinópse *"} value={form.synopsis} helperText={errors?.synopsis} onBlur={handleBlur} onChange={handleChange} error={Boolean(errors?.synopsis)} />
         </div>
