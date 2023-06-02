@@ -198,6 +198,7 @@ body {
 .pro-sidebar-layout {
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;  /* Firefox */
+  height: 100% !important;
 }
 
 .pro-item-content{

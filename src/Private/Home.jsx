@@ -49,7 +49,6 @@ const Home = (props) => {
                 image={image}
                 collapsed={collapsed}
                 toggled={toggled}
-
                 handleToggleSidebar={handleToggleSidebar}
                 handleCollapsedChange={handleCollapsedChange}
 

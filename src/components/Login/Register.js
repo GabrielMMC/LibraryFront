@@ -47,7 +47,7 @@ const Register = () => {
         </div>
         <div style={{ marginTop: loading ? 16 : 44 }}>
           {loading && <LinearProgress />}
-          {error && <Alert variant="filled" severity="error">Ouve um erro, tente novamente mais tarde!</Alert>}
+          {error && <Alert variant="filled" severity="error">Houve um erro, tente novamente mais tarde!</Alert>}
 
           <div className="my-4">
             <TextField fullWidth label={"Nome *"} variant={"standard"} error={Boolean(name.error)}
