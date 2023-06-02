@@ -44,7 +44,7 @@ const Home = (props) => {
     const marginLeft = (toggled === false || window.innerWidth <= 768) ? 0 : (collapsed === false ? 270 : 80);
     console.log('toggle', toggled, collapsed);
     return (
-        <div className={`app ${toggled ? 'toggled' : ''} bg-gray h-100`}>
+        <div className='d-flex app'>
             <Aside
                 image={image}
                 collapsed={collapsed}

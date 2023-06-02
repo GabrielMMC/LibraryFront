@@ -7,6 +7,8 @@ import { useDispatch } from 'react-redux'
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import { emailRegex } from '../../utils/Regex'
+import { GoogleLogin } from 'react-google-login'
+import { gapi } from 'gapi-script'
 
 const Login = () => {
   const [email, setEmail] = React.useState({ value: '', error: false, message: '' })
@@ -38,7 +40,7 @@ const Login = () => {
         dispatch(login({ token: response?.access_token, user: response?.user }));
 
 
-        if (response?.user?.email === 'admin@admin.com') history("/admin")
+        if (response?.user?.email === 'admin@admin.com') history("/admin/books")
         else history("/")
       }
       else {
@@ -53,40 +55,29 @@ const Login = () => {
 
   React.useEffect(() => {
     google.accounts.id.initialize({
-      client_id: "214569242203-m2i9jquahq96fo66itkl1n6p3gurj6ro.apps.googleusercontent.com",
-      callback: handleCallbackResponse
+      client_id: "939893131871-dsfd6cgab78a5efsmhd6maak5891t319.apps.googleusercontent.com",
+      callback: handleCallbackResponse,
+      scope: ''
     })
 
     google.accounts.id.renderButton(
-      document.getElementById("sigin"),
+      document.getElementById("buttonDiv"),
       { theme: 'outline', size: 'large' }
     )
+
+    google.accounts.id.prompt()
   }, [])
 
   const handleCallbackResponse = async (resp) => {
     console.log('resp', resp)
-
-    fetch('https://www.googleapis.com/oauth2/v1/userinfo', {
-      method: "GET",
-      headers: {
-        Accept: 'application/json',
-        Authorization: `Bearer ${resp.credential}`,
-      },
-    })
-      .then(async (res) => {
-        const json = await res.json()
-        console.log('resp jsonssa', json)
-      })
-      .catch((err) => console.log("Error to get: " + err.message));
-
   }
 
   return (
     <div className='d-flex vh-100 align-items-center' style={{ overflow: 'hidden', backgroundColor: '#f5f5f5' }}>
       <div className="p-sm-5 p-3 rounded shadow m-auto bg-white" style={{ width: 500 }}>
-        <div style={{ height: '30%' }}>
+        {/* <div style={{ height: '30%' }}>
           <img src={`${URL}/banner.png`} className='img-fluid' alt="logo" />
-        </div>
+        </div> */}
         <div style={{ marginTop: loading ? 16 : 44 }}>
           {loading && <LinearProgress />}
           {error && <Alert variant="filled" severity="error">Usuário ou senha incorretos!</Alert>}
@@ -105,7 +96,7 @@ const Login = () => {
           </div>
         </div>
         <div className="my-3">
-          <div id="sigin"></div>
+          <div id="buttonDiv"></div>
         </div>
         <div className="d-flex justify-content-end mt-5">
           <span className='align-self-end me-3'>Não tem uma conta? <Link to={"/Register"}>Registre-se</Link></span>

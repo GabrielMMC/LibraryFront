@@ -13,7 +13,7 @@ const SavePreset = (props) => {
         <Button variant='contained' onClick={() => history(props.backPath)} startIcon={<ReplyAllIcon />}> Voltar</Button>
       </div>
       <div className="align-self-center ms-auto">
-        <Button variant='contained' disabled={props.loading} onClick={props.handleSave} endIcon={props.loading ? <CircularProgress size={20} /> : <SaveIcon />}>Salvar</Button>
+        <Button variant='contained' disabled={props.loading} onClick={props.handleSave} endIcon={props.loading ? <CircularProgress size={20} /> : <SaveIcon />}>{props.edit ? 'Editar' : 'Salvar'}</Button>
       </div>
     </div>
   )

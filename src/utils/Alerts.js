@@ -2,17 +2,24 @@ import { Typography } from "@mui/material";
 import 'react-toastify/dist/ReactToastify.css';
 import SweetAlert from "react-bootstrap-sweetalert";
 import { toast, ToastContainer } from "react-toastify";
+import swal from "sweetalert";
 
 export function renderAlert({ id, deleteFunction, article, item }) {
   return (
-    <SweetAlert
-      title={`Deletar ${item} selecionad${article}?`}
-      onConfirm={() => deleteFunction(id)}
-      onCancel={() => console.log('cancelou')}>
-      <form>
-        <Typography>{`Uma vez deletad${article}, não dará para recuperá-l${article}!`}</Typography>
-      </form>
-    </SweetAlert>
+    swal({
+      title: `Deletar ${item} selecionad${article}?`,
+      text: `Uma vez deletad${article}, não dará para recuperá-l${article}!`,
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    }).then(async (willDelete) => {
+      if (willDelete) {
+        swal(`${item} deletad${article} com sucesso!`, {
+          icon: "success",
+        });
+        deleteFunction(id)
+      }
+    })
   )
 }
 

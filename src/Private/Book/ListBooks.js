@@ -79,7 +79,7 @@ const ListBooks = () => {
   }
 
   const handleDelete = async (id) => {
-    const response = await DELETE({ url: `books/${id}` })
+    const response = await DELETE({ url: `books/delete/${id}` })
     // console.log('delete', response)
 
     if (response.status) getData()

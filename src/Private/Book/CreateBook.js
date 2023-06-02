@@ -2,7 +2,7 @@ import React from 'react'
 import useForm from '../../utils/useForm'
 import { useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
-import { GET, POST } from '../../utils/requests'
+import { GET, POST, PUT } from '../../utils/requests'
 import { renderToast } from '../../utils/Alerts'
 import { STORAGE_URL } from '../../utils/variables'
 import SavePreset from '../SavePreset'
@@ -10,8 +10,8 @@ import { moneyMask } from '../../utils/masks/currency'
 import numberMask from '../../utils/masks/clearString'
 import { TextField, Button, FormControl, MenuItem, InputLabel, Select } from '@mui/material'
 
-const CreateBook = () => {
-  const { form, errors, handleChange, handleBlur, setErrors, handleFileChange } = useForm({
+const CreateBook = ({ edit }) => {
+  const { form, setForm, errors, handleChange, handleBlur, setErrors, handleFileChange } = useForm({
     title: '',
     synopsis: '',
     price: '',
@@ -20,7 +20,6 @@ const CreateBook = () => {
     pages: '',
     thumb: { value: '', url: '' }
   })
-  const [edit, setEdit] = React.useState(false)
   const [genders, setGenders] = React.useState([])
   const [loadingSave, setLoadingSave] = React.useState(false)
 
@@ -32,7 +31,20 @@ const CreateBook = () => {
       setGenders(response.genders)
     }
 
-    getData()
+    if (edit) {
+      setForm({
+        title: edit.book.title,
+        synopsis: edit.book.synopsis,
+        price: edit.book.price,
+        gender_id: edit.book.gender_id,
+        writer: edit.book.writer,
+        pages: edit.book.pages,
+        thumb: { value: '', url: edit.book.thumb }
+      })
+      setGenders(edit.genders)
+    } else {
+      getData()
+    }
   }, [])
 
   const handleSave = async () => {
@@ -52,7 +64,10 @@ const CreateBook = () => {
       setLoadingSave(true)
       let response = ''
 
-      if (edit) response = await POST({ url: 'books/update', body })
+      if (edit) {
+        body.append('id', edit.book.id)
+        response = await POST({ url: 'books/update', body })
+      }
       if (!edit) response = await POST({ url: 'books/create', body })
       // console.log('response', response)
 
@@ -68,7 +83,7 @@ const CreateBook = () => {
   return (
     <form className='p-3 w-1200' onSubmit={(e) => { e.preventDefault(); handleSave() }}>
       <h6 className='display-6'>Livros</h6>
-      <p className='text-muted'>Cadastre um livro para o seu sistema!</p>
+      <p className='text-muted'>{edit ? 'Edite seu livro!' : 'Cadastre um livro para o seu sistema!'}</p>
       <hr />
       <div className="row my-4">
         <div className="col-sm-6">
@@ -117,7 +132,7 @@ const CreateBook = () => {
           </div>
         </div>
 
-        <SavePreset backPath={'/admin/books'} loading={loadingSave} handleSave={handleSave} />
+        <SavePreset backPath={'/admin/books'} loading={loadingSave} handleSave={handleSave} edit={true} />
       </div>
     </form>
   )

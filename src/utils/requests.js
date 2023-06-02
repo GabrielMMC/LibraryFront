@@ -46,7 +46,7 @@ export const POST = async ({ url, body }) => {
   return response;
 };
 
-export const put = async (path, body) => {
+export const PUT = async ({ url, body }) => {
   const token = localStorage.getItem('token')
   const headers = {
     Accept: "application/json",
@@ -54,7 +54,7 @@ export const put = async (path, body) => {
     ...(token && { Authorization: "Bearer " + token }),
   };
 
-  let response = await fetch(path, {
+  let response = await fetch(API_URL + '/' + url, {
     method: "PUT",
     headers: headers,
     body: body,
@@ -101,14 +101,29 @@ export const useDelete = async (path, body) => {
   return response;
 };
 
-export const DELETE = async (path) => {
+export async function GET_FETCH({ url }) {
+  const token = localStorage.getItem('token')
+  return (fetch(`${API_URL}/${url}`, {
+    method: 'GET',
+    headers: {
+      'Accept': 'application/json',
+      'Authorization': `Bearer ${token}`
+    }
+  }).then(async (response) => {
+    const resp = await response.json()
+    return resp
+  })
+  )
+}
+
+export const DELETE = async ({ url }) => {
   const token = localStorage.getItem('token')
   const headers = {
     Accept: "application/json",
     Authorization: "Bearer " + token
   };
 
-  let response = await fetch(path, {
+  let response = await fetch(`${API_URL}/${url}`, {
     method: "DELETE",
     headers: headers,
   })

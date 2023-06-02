@@ -2,14 +2,23 @@ import React from 'react';
 import { ProSidebar, Menu, MenuItem, SidebarFooter, SidebarContent, SubMenu } from 'react-pro-sidebar';
 import { FaUser, FaBook } from 'react-icons/fa';
 import sidebarBg from './assets/bg1.jpg';
-import { NavLink } from 'react-router-dom';
-import { MdCopyright } from 'react-icons/md';
-// import { useSelector, useDispatch } from 'react-redux';
+import { NavLink, useNavigate } from 'react-router-dom';
+import { MdOutlineLogout } from 'react-icons/md';
+import { IconButton } from '@mui/material';
+import { logout } from '../../components/actions/AppActions';
+import { useDispatch } from 'react-redux';
 
 
 const Aside = ({ image, collapsed, toggled, handleToggleSidebar }) => {
-  // let user = useSelector(store => store.AppReducer.user);
+  const dispatch = useDispatch()
+  const history = useNavigate()
 
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    dispatch(logout());
+    history('/login')
+  }
 
   return (
     <ProSidebar
@@ -17,10 +26,15 @@ const Aside = ({ image, collapsed, toggled, handleToggleSidebar }) => {
       collapsed={collapsed}
       toggled={toggled}
       breakPoint="md"
-      style={{ height: '100%', minHeight: '100%', boxShadow: 'rgba(100, 100, 111, 0.2) 0px 7px 29px 0px' }}
+      // style={{ boxShadow: 'rgba(100, 100, 111, 0.2) 0px 7px 29px 0px' }}
       onToggle={handleToggleSidebar}
     >
       <SidebarContent className='scrollMenu' style={{ background: '#222d32', overflowY: 'auto' }}>
+        <div className="d-flex">
+          <div className="ms-auto">
+            <IconButton onClick={handleLogout}><MdOutlineLogout color="#adadad" /></IconButton>
+          </div>
+        </div>
         <Menu iconShape="circle">
           <SubMenu defaultOpen activeStyle={{ fontWeight: "bold" }} title="Usuário" icon={<FaUser size='20' />}>
             <MenuItem activeStyle={{ fontWeight: "bold" }}>
